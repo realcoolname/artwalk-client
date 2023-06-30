@@ -9,3 +9,8 @@
 .navbar {
   background-color: aquamarine;
 }
+
+.event-card {
+  border: 2px solid black;
+  width: 80%;
+}
