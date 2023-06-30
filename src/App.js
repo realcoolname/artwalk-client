@@ -8,7 +8,7 @@ import Homepage from "./pages/Homepage";
 import EventsListPage from "./pages/EventsListPage";
 import VenuesListPage from "./pages/VenuesListPage";
 
-import NavBar from "./components/NavBar";
+import NavBar from "./components/Navbar";
 import VenueCard from "./components/VenueCard";
 import EventCard from "./components/EventCard";
 import Carousel from "./components/Caroussel";

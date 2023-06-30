@@ -40,6 +40,7 @@ function SignUpModal({ handleClose }) {
     axios.post(`${API_URL}/auth/signup`, requestBody).then((response) => {
       navigate("/login");
     });
+  };
 
     return (
       <Modal
@@ -53,11 +54,19 @@ function SignUpModal({ handleClose }) {
         </Modal.Header>
         <Modal.Body>
           <div className="SignupPage">
-            <h1>Sign Up</h1>
 
-            <form onSubmit={handleSignupSubmit}>
+            <form onSubmit={handleSignupSubmit} class="signup-form-container">
+
+            <label>Full Name:</label>
+              <input class="input-field"
+                type="text"
+                name="name"
+                value={name}
+                onChange={handleName}
+              />
+
               <label>Email:</label>
-              <input
+              <input class="input-field"
                 type="email"
                 name="email"
                 value={email}
@@ -65,22 +74,13 @@ function SignUpModal({ handleClose }) {
               />
 
               <label>Password:</label>
-              <input
+              <input class="input-field"
                 type="password"
                 name="password"
                 value={password}
                 onChange={handlePassword}
               />
 
-              <label>Name:</label>
-              <input
-                type="text"
-                name="name"
-                value={name}
-                onChange={handleName}
-              />
-
-              <button type="submit">Sign Up</button>
             </form>
 
             {errorMessage && <p className="error-message">{errorMessage}</p>}
@@ -89,17 +89,16 @@ function SignUpModal({ handleClose }) {
             <Link to={"/login"}> Login</Link>
           </div>
 
-          <p>Please sign up using the form.</p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleModalClose}>
             Close
           </Button>
-          <Button variant="primary">Sign Up</Button>
+          <Button variant="primary" type="submit">Sign Up</Button>
         </Modal.Footer>
       </Modal>
     );
   };
-}
+
 
 export default SignUpModal;
