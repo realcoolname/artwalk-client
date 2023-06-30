@@ -13,7 +13,7 @@ import VenueCard from "./components/VenueCard";
 import EventCard from "./components/EventCard";
 import Carousel from "./components/Caroussel";
 import LogIn from "./components/LogIn";
-import SignUp from "./components/SignUp";
+import SignUpModal from "./components/SignUpModal";
 import UpdateEventForm from "./components/UpdateEventForm";
 
 function App() {
