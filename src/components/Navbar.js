@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import SignUpModal from "./SignUpModal";
+import SignUpModal from "./SignUpModal.js";
 
 function NavBar() {
   const [showSignUpModal, setShowSignUpModal] = useState(false);
