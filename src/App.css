@@ -24,3 +24,48 @@
 .input-field {
   margin: 0.5em;
 }
+
+.sign-up-button-group {
+  padding: 0.5em;
+}
+
+.sign-up-btn { 
+  margin-left: 1em;
+  background-color: rgb(224, 112, 241);
+  border-style: none;
+}
+
+.close-btn {
+  background-color: rgb(60, 59, 59);
+}
+
+.have-account {
+  margin-top: 1em;
+}
+
+.label-text {
+  padding-left: 0.5em;
+}
+
+.nav-margin-right {
+  margin-right: 1em;
+}
+
+.login-form-container {
+  background-color: aquamarine;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-button-group {
+  padding: 0.5em;
+}
+
+.close-btn {
+  margin-right: 1em;
+}
+
+.login-btn {
+  background-color: rgb(99, 99, 220);
+  border-style: none;
+}

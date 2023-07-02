@@ -1,4 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import { AuthProviderWrapper } from "./context/auth.context";
 
 import "./App.css";
 
@@ -12,21 +13,21 @@ import NavBar from "./components/Navbar";
 import VenueCard from "./components/VenueCard";
 import EventCard from "./components/EventCard";
 import Carousel from "./components/Caroussel";
-import LogIn from "./components/LogIn";
+import LogInModal from "./components/LogInModal";
 import SignUpModal from "./components/SignUpModal";
 import UpdateEventForm from "./components/UpdateEventForm";
 
 function App() {
   return (
     <div className="App">
-      <NavBar />
-      
-
-      <Routes>
-        <Route exact path="/" element={<Homepage />} />
-        <Route exact path="/events" element={<EventsListPage />} />
-        <Route exact path="/venues" element={<VenuesListPage />} />
-      </Routes>
+      <AuthProviderWrapper> {/* Add the AuthProviderWrapper */}
+        <NavBar />
+        <Routes>
+          <Route exact path="/" element={<Homepage />} />
+          <Route exact path="/events" element={<EventsListPage />} />
+          <Route exact path="/venues" element={<VenuesListPage />} />
+        </Routes>
+      </AuthProviderWrapper> {/* Close the AuthProviderWrapper */}
     </div>
   );
 }
