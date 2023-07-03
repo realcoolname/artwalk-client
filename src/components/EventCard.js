@@ -8,7 +8,7 @@ function EventCard(props) {
   const { event } = props;
   const {eventId } = useParams();
   const navigate = useNavigate();
-  
+  const [events, setEvents] = useState([]);
 
   // DELETE EVENT
   const deleteEvent = () => {
