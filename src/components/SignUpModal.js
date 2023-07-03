@@ -1,13 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import LogInModal from "./LogInModal";
+import { AuthContext } from "../context/auth.context";
 
 const API_URL = "http://localhost:5005";
 
-function SignUpModal({ handleClose }) {
+function SignUpModal({ handleClose, handleSignUpSuccess, handleLogIn }) {
   const [show, setShow] = useState(true);
 
   const [email, setEmail] = useState("");
@@ -15,7 +15,7 @@ function SignUpModal({ handleClose }) {
   const [name, setName] = useState("");
 
   const [errorMessage, setErrorMessage] = useState(undefined);
-  const [showLogInModal, setShowLogInModal] = useState(false);
+  const { authenticateUser } = useContext(AuthContext);
 
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
@@ -39,13 +39,15 @@ function SignUpModal({ handleClose }) {
       .post(`${API_URL}/auth/signup`, requestBody)
       .then((response) => {
         handleModalClose();
-        setShowLogInModal(true);
         setEmail("");
         setPassword("");
         setName("");
+
+        handleSignUpSuccess();
+        handleLogIn(email, password);
       })
       .catch((error) => {
-        setErrorMessage("Sign up failed. Please try again.");
+        setErrorMessage(error.response.data.message);
       });
   };
 
@@ -62,35 +64,38 @@ function SignUpModal({ handleClose }) {
         </Modal.Header>
         <Modal.Body>
           <div className="SignupPage">
-            <form onSubmit={handleSignupSubmit} class="signup-form-container">
-              <label class="label-text">Full Name:</label>
+            <form onSubmit={handleSignupSubmit} className="signup-form-container">
+              <label className="label-text">Full Name:</label>
               <input
-                class="input-field"
+                className="input-field"
                 type="text"
                 name="name"
                 value={name}
                 onChange={handleName}
+                autoComplete="name"
               />
 
-              <label class="label-text">Email:</label>
+              <label className="label-text">Email:</label>
               <input
-                class="input-field"
+                className="input-field"
                 type="email"
                 name="email"
                 value={email}
                 onChange={handleEmail}
+                autoComplete="email"
               />
 
-              <label class="label-text">Password:</label>
+              <label className="label-text">Password:</label>
               <input
-                class="input-field"
+                className="input-field"
                 type="password"
                 name="password"
                 value={password}
                 onChange={handlePassword}
+                autoComplete="password"
               />
 
-              <div class="sign-up-button-group">
+              <div className="sign-up-button-group">
                 <Button
                   variant="secondary"
                   onClick={handleModalClose}
@@ -106,15 +111,12 @@ function SignUpModal({ handleClose }) {
 
             {errorMessage && <p className="error-message">{errorMessage}</p>}
 
-            <p class="have-account">
+            <p className="have-account">
               Already have an account? 👉 <Link to={"/"}> Login</Link>
             </p>
           </div>
         </Modal.Body>
       </Modal>
-      {showLogInModal && (
-        <LogInModal handleClose={() => setShowLogInModal(false)} />
-      )}
     </>
   );
 }

@@ -7,7 +7,7 @@ import { AuthContext } from "../context/auth.context";
 
 const API_URL = "http://localhost:5005";
 
-function LogInModal({ handleClose }) {
+function LogInModal({ handleClose, handleLogInSuccess }) {
   const [show, setShow] = useState(true);
 
   const [email, setEmail] = useState("");
@@ -41,14 +41,18 @@ function LogInModal({ handleClose }) {
     axios
       .post(`${API_URL}/auth/login`, requestBody)
       .then((response) => {
+
+        console.log('after login', response.data)
+
         storeToken(response.data.authToken);
         authenticateUser();
         handleModalClose();
+        handleLogInSuccess();
         navigate("/events");
       })
       .catch((error) => {
-        const errorDescription = error.response.data.message;
-        setErrorMessage(errorDescription);
+        console.log(error.response.data.message)
+        setErrorMessage(error.response.data.message);
       });
   };
 
@@ -64,26 +68,28 @@ function LogInModal({ handleClose }) {
       </Modal.Header>
       <Modal.Body>
         <div className="LoginPage">
-          <form onSubmit={handleLoginSubmit} class="login-form-container">
-            <label class="label-text">Email:</label>
+          <form onSubmit={handleLoginSubmit} className="login-form-container">
+            <label className="label-text">Email:</label>
             <input
-              class="input-field"
+              className="input-field"
               type="email"
               name="email"
               value={email}
               onChange={handleEmail}
+              autoComplete="email"
             />
 
-            <label class="label-text">Password:</label>
+            <label className="label-text">Password:</label>
             <input
-              class="input-field"
+              className="input-field"
               type="password"
               name="password"
               value={password}
               onChange={handlePassword}
+              autoComplete="password"
             />
 
-            <div class="login-button-group">
+            <div className="login-button-group">
               <Button
                 variant="secondary"
                 onClick={handleModalClose}

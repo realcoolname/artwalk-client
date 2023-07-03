@@ -1,31 +1,29 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import SignUpModal from "./SignUpModal.js";
 import LogInModal from "./LogInModal.js";
+import { AuthContext } from "../context/auth.context.js";
 
-function NavBar() {
+function NavBar( { isLoggedIn, handleLogOut, handleLogIn } ) {
   const [showSignUpModal, setShowSignUpModal] = useState(false);
   const [showLogInModal, setShowLogInModal] = useState(false);
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { logOutUser } = useContext(AuthContext)
 
   const handleOpenSignUpModal = () => {
-    setShowSignUpModal((prevState) => !prevState);
+    setShowSignUpModal(true);
   };
 
   const handleOpenLogInModal = () => {
-    setShowLogInModal((prevState) => !prevState);
-  };
-
-  const handleLogInAfterSignUp = () => {
-    setShowSignUpModal(false);
     setShowLogInModal(true);
   };
 
-  const handleLogOut = () => {
-    setIsLoggedIn(false);
-    window.location.href = "/";
+  const handleSignUpSuccess = () => {
+    setShowSignUpModal(false);
+  };
+
+  const handleLogInSuccess = () => {
+    setShowLogInModal(false);
   };
 
   return (
@@ -49,27 +47,40 @@ function NavBar() {
           </Nav>
 
           <Nav className="navbar-nav ms-auto nav-margin-right">
-            <Nav.Link onClick={handleOpenLogInModal} className="nav-link">
-              Log In
-            </Nav.Link>
-            <Nav.Link onClick={handleOpenSignUpModal} className="nav-link">
-              Sign Up
-            </Nav.Link>
-            <Nav.Link onClick={handleLogOut} className="nav-link">
+            
+          {!isLoggedIn && (
+            <>
+              <Nav.Link
+                onClick={handleOpenLogInModal}
+                className="nav-link"
+              >
+                Log In
+              </Nav.Link>
+              <Nav.Link
+                onClick={handleOpenSignUpModal}
+                className="nav-link"
+              >
+                Sign Up
+              </Nav.Link>
+            </>
+          )}
+          {isLoggedIn && (
+            <Nav.Link onClick={logOutUser} className="nav-link">
               Log Out
             </Nav.Link>
-          </Nav>
+          )}
+
+        </Nav>
         </Navbar.Collapse>
       </Navbar>
 
       {showLogInModal && (
-        <LogInModal handleClose={() => setShowLogInModal(false)} />
+        <LogInModal handleClose={() => setShowLogInModal(false)} 
+        handleLogInSuccess={handleLogInSuccess} />
       )}
       {showSignUpModal && (
-        <SignUpModal
-          handleClose={() => setShowSignUpModal(false)}
-          handleLogInAfterSignUp={handleLogInAfterSignUp}
-        />
+        <SignUpModal handleClose={() => setShowSignUpModal(false)} 
+        handleSignUpSuccess={handleSignUpSuccess} handleLogIn={handleLogIn} />
       )}
     </>
   );
