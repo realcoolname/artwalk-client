@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from 'react-bootstrap';
 
 
 function EventCard(props) {
@@ -15,13 +16,15 @@ function EventCard(props) {
 
   return (
     <div className='event-card'>
-      <h1>IMAGE OF THE EVENT</h1>
+      <h1>IMAGE OF THE EVENT</h1> <hr/>
       <h2>{event.name}</h2>
       <p>Curated by: {event.curator}</p>
       <p>Venue: {event.venue}</p>
       <p>{formattedDate}</p>
       <p>{event.discipline}</p>
       <p>{event.description}</p>
+      <Button className='btn-color'>Delete</Button> <br/>
+      <Button className='btn-color'>Update</Button>
       
     </div>
   );

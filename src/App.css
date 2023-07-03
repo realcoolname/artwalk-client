@@ -3,7 +3,9 @@
 }
 
 .btn-color {
-  background-color: brown;
+  background-color: aquamarine;
+  border-radius: 5px;
+  color: #0f0f0f;
 }
 
 .navbar {
@@ -69,3 +71,8 @@
   background-color: rgb(99, 99, 220);
   border-style: none;
 }
+
+.add-event-form {
+  border: 2px solid black;
+}
+

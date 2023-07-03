@@ -1,6 +1,7 @@
 import EventCard from "../components/EventCard";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import AddEventForm from "../components/AddEventForm"
 
 function EventsListPage(props) {
   const [events, setEvents] = useState([]);
@@ -11,6 +12,7 @@ function EventsListPage(props) {
       .then((response) => setEvents(response.data))
       .catch((error) => console.log(error));
   };
+  
 
   useEffect(() => {
     getAllEvents();
@@ -18,6 +20,7 @@ function EventsListPage(props) {
 
   return (
     <div>
+      <AddEventForm refreshEvents={getAllEvents}/>
       {events.map((event) => (
         <EventCard key={event._id} event={event} />
       ))}
