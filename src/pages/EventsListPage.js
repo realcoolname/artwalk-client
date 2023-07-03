@@ -12,17 +12,19 @@ function EventsListPage(props) {
       .then((response) => setEvents(response.data))
       .catch((error) => console.log(error));
   };
-  
 
   useEffect(() => {
     getAllEvents();
   }, []);
+  
+
+ 
 
   return (
     <div>
       <AddEventForm refreshEvents={getAllEvents}/>
       {events.map((event) => (
-        <EventCard key={event._id} event={event} />
+        <EventCard key={event._id} event={event} refreshEvents={getAllEvents} />
       ))}
     </div>
   );

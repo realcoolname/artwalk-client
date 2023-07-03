@@ -23,11 +23,12 @@ const AddEventForm = (props) => {
     const requestBody = {
       name,
       curator,
-      venues: [selectedVenue],
+      venue: selectedVenue,
       date,
       discipline,
       description,
     };
+  
 
     axios
       .post(`${process.env.REACT_APP_API_URL}/api/events`, requestBody)
@@ -101,8 +102,8 @@ const AddEventForm = (props) => {
             />
             <select value={selectedVenue} onChange={handleVenueChange}>
               <option value="">Select Venue</option>
-              {venues.map((venue) => (
-                <option key={venue._id} value={venue.name}>
+              {venues.map((venue, index) => (
+                <option key={index} value={venue._id}>
                   {venue.name}
                 </option>
               ))}
@@ -128,9 +129,9 @@ const AddEventForm = (props) => {
               onChange={(e) => setDescription(e.target.value)}
             />
 
-<button type="submit" className="btn-color">
-  Submit
-</button>
+            <button type="submit" className="btn-color">
+              Submit
+            </button>
           </form>
         </div>
       </div>
