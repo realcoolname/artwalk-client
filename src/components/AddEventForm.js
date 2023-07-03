@@ -66,15 +66,15 @@ const AddEventForm = (props) => {
   }, []);
 
   return (
-    <div className="accordion" id="accordionExample">
+    <div className="accordion accordion-container" id="accordionExample">
       <div className="accordion-item">
         <h2 className="accordion-header" id="headingOne">
           <button
-            className={`accordion-button ${isExpanded ? "" : "collapsed"}`}
+            className={`accordion-button ${isExpanded ? "" : "collapsed"} accordion-width`} 
             type="button"
             onClick={handleButtonClick}
           >
-            <FontAwesomeIcon icon={faPlus} /> Add Event
+            <FontAwesomeIcon icon={faPlus} />  Add Event
           </button>
         </h2>
         <div
@@ -83,7 +83,7 @@ const AddEventForm = (props) => {
           aria-labelledby="headingOne"
           data-bs-parent="#accordionExample"
         >
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="add-event-form">
             {/* <input type="text" placeholder="Image" /> */}
             <label>Name:</label>
             <input
@@ -99,8 +99,9 @@ const AddEventForm = (props) => {
               name="curator"
               value={curator}
               onChange={(e) => setCurator(e.target.value)}
+              
             />
-            <select value={selectedVenue} onChange={handleVenueChange}>
+            <select value={selectedVenue} onChange={handleVenueChange} className="select-venue-text">
               <option value="">Select Venue</option>
               {venues.map((venue, index) => (
                 <option key={index} value={venue._id}>
