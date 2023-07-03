@@ -3,31 +3,25 @@ import { AuthProviderWrapper } from "./context/auth.context";
 
 import "./App.css";
 
-import { Route, Routes, NavLink, Link } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 import Homepage from "./pages/Homepage";
 import EventsListPage from "./pages/EventsListPage";
 import VenuesListPage from "./pages/VenuesListPage";
 
 import NavBar from "./components/Navbar";
-import VenueCard from "./components/VenueCard";
-import EventCard from "./components/EventCard";
-import Carousel from "./components/Caroussel";
-import LogInModal from "./components/LogInModal";
-import SignUpModal from "./components/SignUpModal";
-import UpdateEventForm from "./components/UpdateEventForm";
 
 function App() {
   return (
     <div className="App">
-      <AuthProviderWrapper> {/* Add the AuthProviderWrapper */}
+      <AuthProviderWrapper>
         <NavBar />
         <Routes>
           <Route exact path="/" element={<Homepage />} />
           <Route exact path="/events" element={<EventsListPage />} />
           <Route exact path="/venues" element={<VenuesListPage />} />
         </Routes>
-      </AuthProviderWrapper> {/* Close the AuthProviderWrapper */}
+      </AuthProviderWrapper>
     </div>
   );
 }

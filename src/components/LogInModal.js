@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../context/auth.context";
 
@@ -38,52 +38,57 @@ function LogInModal({ handleClose }) {
     // Make an axios request to the API
     // If the POST request is a successful redirect to the login page
     // If the request resolves with an error, set the error message in the state
-    axios.post(`${API_URL}/auth/login`, requestBody)
+    axios
+      .post(`${API_URL}/auth/login`, requestBody)
       .then((response) => {
         storeToken(response.data.authToken);
-        authenticateUser();  
+        authenticateUser();
         handleModalClose();
         navigate("/events");
-    })
-    .catch((error) => {
+      })
+      .catch((error) => {
         const errorDescription = error.response.data.message;
         setErrorMessage(errorDescription);
-    }
-  )};
+      });
+  };
 
-    return (
-      <Modal
-        show={show}
-        onHide={handleModalClose}
-        backdrop="static"
-        keyboard={false}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Log In</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div className="LoginPage">
+  return (
+    <Modal
+      show={show}
+      onHide={handleModalClose}
+      backdrop="static"
+      keyboard={false}
+    >
+      <Modal.Header closeButton>
+        <Modal.Title>Log In</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <div className="LoginPage">
+          <form onSubmit={handleLoginSubmit} class="login-form-container">
+            <label class="label-text">Email:</label>
+            <input
+              class="input-field"
+              type="email"
+              name="email"
+              value={email}
+              onChange={handleEmail}
+            />
 
-            <form onSubmit={handleLoginSubmit} class="login-form-container">
+            <label class="label-text">Password:</label>
+            <input
+              class="input-field"
+              type="password"
+              name="password"
+              value={password}
+              onChange={handlePassword}
+            />
 
-              <label class="label-text">Email:</label>
-              <input class="input-field"
-                type="email"
-                name="email"
-                value={email}
-                onChange={handleEmail}
-              />
-
-              <label class="label-text">Password:</label>
-              <input class="input-field"
-                type="password"
-                name="password"
-                value={password}
-                onChange={handlePassword}
-              />
-
-              <div class="login-button-group">
-              <Button variant="secondary" onClick={handleModalClose} className="close-btn">
+            <div class="login-button-group">
+              <Button
+                variant="secondary"
+                onClick={handleModalClose}
+                className="close-btn"
+              >
                 Close
               </Button>
               <Button variant="primary" type="submit" className="login-btn">
@@ -93,7 +98,6 @@ function LogInModal({ handleClose }) {
           </form>
 
           {errorMessage && <p className="error-message">{errorMessage}</p>}
-
         </div>
       </Modal.Body>
     </Modal>

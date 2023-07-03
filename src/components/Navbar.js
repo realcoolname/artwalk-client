@@ -11,22 +11,27 @@ function NavBar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleOpenSignUpModal = () => {
-    setShowSignUpModal(prevState => !prevState);
+    setShowSignUpModal((prevState) => !prevState);
   };
 
   const handleOpenLogInModal = () => {
-    setShowLogInModal(prevState => !prevState);
-  }
+    setShowLogInModal((prevState) => !prevState);
+  };
+
+  const handleLogInAfterSignUp = () => {
+    setShowSignUpModal(false);
+    setShowLogInModal(true);
+  };
 
   const handleLogOut = () => {
     setIsLoggedIn(false);
-    window.location.href = "/"; 
+    window.location.href = "/";
   };
 
   return (
     <>
       <Navbar className="navbar" expand="lg">
-        <Navbar.Brand style={{ marginLeft: "1em"}} as={Link} to="/">
+        <Navbar.Brand style={{ marginLeft: "1em" }} as={Link} to="/">
           ARTWALK
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbar-nav" />
@@ -54,13 +59,18 @@ function NavBar() {
               Log Out
             </Nav.Link>
           </Nav>
-
-         
         </Navbar.Collapse>
       </Navbar>
 
-      {showLogInModal && <LogInModal handleClose={() => setShowLogInModal(false)} />}
-      {showSignUpModal && <SignUpModal handleClose={() => setShowSignUpModal(false)} />}
+      {showLogInModal && (
+        <LogInModal handleClose={() => setShowLogInModal(false)} />
+      )}
+      {showSignUpModal && (
+        <SignUpModal
+          handleClose={() => setShowSignUpModal(false)}
+          handleLogInAfterSignUp={handleLogInAfterSignUp}
+        />
+      )}
     </>
   );
 }
