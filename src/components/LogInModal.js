@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../context/auth.context";
 
-const API_URL = "http://localhost:5005";
+
 
 function LogInModal({ handleClose, handleLogInSuccess }) {
   const [show, setShow] = useState(true);
@@ -39,7 +39,7 @@ function LogInModal({ handleClose, handleLogInSuccess }) {
     // If the POST request is a successful redirect to the login page
     // If the request resolves with an error, set the error message in the state
     axios
-      .post(`${API_URL}/auth/login`, requestBody)
+      .post(`${process.env.REACT_APP_API_URL}/auth/login`, requestBody)
       .then((response) => {
 
         console.log('after login', response.data)
