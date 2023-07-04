@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../context/auth.context";
 
-const API_URL = "http://localhost:5005";
+
 
 function SignUpModal({ handleClose, handleSignUpSuccess, handleLogIn }) {
   const [show, setShow] = useState(true);
@@ -36,7 +36,7 @@ function SignUpModal({ handleClose, handleSignUpSuccess, handleLogIn }) {
     const requestBody = { name, email, password };
 
     axios
-      .post(`${API_URL}/auth/signup`, requestBody)
+      .post(`${process.env.REACT_APP_API_URL}/auth/signup`, requestBody)
       .then((response) => {
         handleModalClose();
         setEmail("");
