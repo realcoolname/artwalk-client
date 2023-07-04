@@ -47,7 +47,9 @@ function EventCard(props) {
       <p>{formattedDate}</p>
       <p>{event.discipline}</p>
       <p>{event.description}</p>
-      <Button className='btn-color' onClick={deleteEvent}>Delete</Button> <br/>
+      <br/>
+      <Button className='btn-color' onClick={deleteEvent}>Delete</Button> 
+      <br/>
       <Button className='btn-color'>Update</Button>
       
     </div>
