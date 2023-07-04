@@ -48,6 +48,7 @@ function EventCard({ event, refreshEvents, handleUpdateButtonClick }) {
       <p>{formattedDate}</p>
       <p>{event.discipline}</p>
       <p>{event.description}</p>
+      <br/>
       <Button className='btn-color' onClick={deleteEvent}>Delete</Button> <br/>
       <Button className="btn-color" onClick={handleUpdate}>
           Update
