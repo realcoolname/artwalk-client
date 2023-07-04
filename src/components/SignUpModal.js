@@ -47,7 +47,11 @@ function SignUpModal({ handleClose, handleSignUpSuccess, handleLogIn }) {
         handleLogIn(email, password);
       })
       .catch((error) => {
-        setErrorMessage(error.response.data.message);
+        if (error.response && error.response.data) {
+          setErrorMessage(error.response.data.message);
+        } else {
+          setErrorMessage("An error occurred. Please try again.");
+        }
       });
   };
 
