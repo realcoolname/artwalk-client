@@ -1,10 +1,23 @@
 import EventCard from "../components/EventCard";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import AddEventForm from "../components/AddEventForm"
+import AddEventForm from "../components/AddEventForm";
+import UpdateEventModal from "../components/UpdateEventModal";
 
 function EventsListPage(props) {
   const [events, setEvents] = useState([]);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
+
+  const handleUpdateButtonClick = (event) => {
+    setSelectedEvent(event);
+    setShowUpdateModal(true);
+  };
+
+  const handleCloseUpdateModal = () => {
+    setSelectedEvent(null);
+    setShowUpdateModal(false);
+  };
 
   const getAllEvents = () => {
     axios
@@ -16,16 +29,25 @@ function EventsListPage(props) {
   useEffect(() => {
     getAllEvents();
   }, []);
-  
-
- 
 
   return (
     <div>
-      <AddEventForm refreshEvents={getAllEvents}/>
+      <AddEventForm refreshEvents={getAllEvents} />
       {events.map((event) => (
-        <EventCard key={event._id} event={event} refreshEvents={getAllEvents} />
+        <EventCard
+        key={event._id}
+        event={event}
+        refreshEvents={getAllEvents}
+        handleUpdateButtonClick={handleUpdateButtonClick}
+      />
       ))}
+     {showUpdateModal && (
+        <UpdateEventModal
+          event={selectedEvent}
+          onClose={handleCloseUpdateModal}
+          refreshEvents={getAllEvents}
+        />
+      )}
     </div>
   );
 }

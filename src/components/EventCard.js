@@ -1,12 +1,11 @@
 import React from "react";
-import { Button } from 'react-bootstrap';
+import { Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from "react-router-dom";
 
-function EventCard(props) {
-  const { event } = props;
-  const {eventId } = useParams();
+function EventCard({ event, refreshEvents, handleUpdateButtonClick }) {
+  const { eventId } = useParams();
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
 
@@ -15,7 +14,7 @@ function EventCard(props) {
     axios
       .delete(`${process.env.REACT_APP_API_URL}/api/events/${event._id}`)
       .then(() => {
-        props.refreshEvents()
+        refreshEvents();
       })
       .catch((err) => console.log(err));
   };
@@ -28,8 +27,10 @@ function EventCard(props) {
       })
       .catch((err) => console.log(err));
   }, [eventId]);
-  
 
+  const handleUpdate = () => {
+    handleUpdateButtonClick(event);
+  };
 
   // Convert the date string to a JavaScript Date object
   const eventDate = new Date(event.date);
@@ -38,19 +39,25 @@ function EventCard(props) {
   const options = { day: "numeric", month: "short", year: "numeric" };
   const formattedDate = eventDate.toLocaleDateString(undefined, options);
 
-  return event && (
-    <div className='event-card'>
-      <h1>IMAGE OF THE EVENT</h1> <hr/>
-      <h2>{event.name}</h2>
-      <p>Curated by: {event.curator}</p>
-      <p>Venue: {event.venue.name}</p>
-      <p>{formattedDate}</p>
-      <p>{event.discipline}</p>
-      <p>{event.description}</p>
-      <Button className='btn-color' onClick={deleteEvent}>Delete</Button> <br/>
-      <Button className='btn-color'>Update</Button>
-      
-    </div>
+  return (
+    event && (
+      <div className="event-card">
+        <h1>IMAGE OF THE EVENT</h1> <hr />
+        <h2>{event.name}</h2>
+        <p>Curated by: {event.curator}</p>
+        <p>Venue: {event.venue.name}</p>
+        <p>{formattedDate}</p>
+        <p>{event.discipline}</p>
+        <p>{event.description}</p>
+        <Button className="btn-color" onClick={deleteEvent}>
+          Delete
+        </Button>{" "}
+        <br />
+        <Button className="btn-color" onClick={handleUpdate}>
+          Update
+        </Button>
+      </div>
+    )
   );
 }
 
