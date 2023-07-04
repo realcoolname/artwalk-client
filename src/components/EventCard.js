@@ -43,7 +43,7 @@ function EventCard(props) {
       <h1>IMAGE OF THE EVENT</h1> <hr/>
       <h2>{event.name}</h2>
       <p>Curated by: {event.curator}</p>
-      <p>Venue: {event.venue.name}</p>
+      <p>Venue: {event.venue?.name}</p>
       <p>{formattedDate}</p>
       <p>{event.discipline}</p>
       <p>{event.description}</p>
