@@ -32,9 +32,9 @@ function SignUpModal({ handleClose, handleSignUpSuccess, handleLogIn }) {
 
   const handleSignupSubmit = (e) => {
     e.preventDefault();
-  
+
     const requestBody = { name, email, password };
-  
+
     axios
       .post(`${process.env.REACT_APP_API_URL}/auth/signup`, requestBody)
       .then((response) => {
@@ -42,19 +42,14 @@ function SignUpModal({ handleClose, handleSignUpSuccess, handleLogIn }) {
         setEmail("");
         setPassword("");
         setName("");
-  
+
         handleSignUpSuccess();
         handleLogIn(email, password);
       })
       .catch((error) => {
-        if (error.response && error.response.data) {
-          setErrorMessage(error.response.data.message);
-        } else {
-          setErrorMessage("An error occurred. Please try again.");
-        }
+        setErrorMessage(error.response.data.message);
       });
   };
-  
 
   return (
     <>
