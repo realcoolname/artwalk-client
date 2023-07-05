@@ -33,15 +33,19 @@ function EventsListPage(props) {
   return (
     <div>
       <AddEventForm refreshEvents={getAllEvents} />
-      {events.map((event) => (
-        <EventCard
-        key={event._id}
-        event={event}
-        refreshEvents={getAllEvents}
-        handleUpdateButtonClick={handleUpdateButtonClick}
-      />
-      ))}
-     {showUpdateModal && (
+      {events.length === 0 ? (
+        <p>Currently, there are no events to show.</p>
+      ) : (
+        events.map((event) => (
+          <EventCard
+            key={event._id}
+            event={event}
+            refreshEvents={getAllEvents}
+            handleUpdateButtonClick={handleUpdateButtonClick}
+          />
+        ))
+      )}
+      {showUpdateModal && (
         <UpdateEventModal
           event={selectedEvent}
           onClose={handleCloseUpdateModal}
@@ -53,3 +57,10 @@ function EventsListPage(props) {
 }
 
 export default EventsListPage;
+
+
+
+
+
+
+

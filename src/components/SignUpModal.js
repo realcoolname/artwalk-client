@@ -15,7 +15,7 @@ function SignUpModal({ handleClose, handleSignUpSuccess, handleLogIn }) {
   const [name, setName] = useState("");
 
   const [errorMessage, setErrorMessage] = useState(undefined);
-  const { authenticateUser, storeToken } = useContext(AuthContext); //
+  const { authenticateUser } = useContext(AuthContext);
 
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
@@ -44,16 +44,10 @@ function SignUpModal({ handleClose, handleSignUpSuccess, handleLogIn }) {
         setName("");
 
         handleSignUpSuccess();
-        storeToken(response.data.authToken) //
-        authenticateUser()//
-        
+        handleLogIn(email, password);
       })
       .catch((error) => {
-        if (error.response && error.response.data) {
-          setErrorMessage(error.response.data.message);
-        } else {
-          setErrorMessage("An error occurred. Please try again.");
-        }
+        setErrorMessage(error.response.data.message);
       });
   };
 

@@ -1,21 +1,22 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button, Toast } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 
-const AddEventForm = (props) => {
+const AddVenueForm = (props) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const [name, setName] = useState("");
-  const [curator, setCurator] = useState("");
-  const [venues, setVenues] = useState([]);
-  const [selectedVenue, setSelectedVenue] = useState("");
-  const [date, setDate] = useState(null);
-  const [discipline, setDiscipline] = useState("");
   const [description, setDescription] = useState("");
+  const [address, setAddress] = useState({
+    street: "",
+    number: "",
+    zip: "",
+    city: "",
+    country: "",
+  });
+  const [website, setWebsite] = useState("");
 
   const [formError, setFormError] = useState(""); // State variable for form error message
   const [showSuccessToast, setShowSuccessToast] = useState(false); // State variable for success toast visibility
@@ -26,11 +27,13 @@ const AddEventForm = (props) => {
     // Validate the form fields
     if (
       !name ||
-      !curator ||
-      !selectedVenue ||
-      !date ||
-      !discipline ||
-      !description
+      !address.street ||
+      !address.number ||
+      !address.zip ||
+      !address.city ||
+      !address.country ||
+      !description ||
+      !website
     ) {
       setFormError("All fields must be completed!");
       return;
@@ -38,26 +41,28 @@ const AddEventForm = (props) => {
 
     const requestBody = {
       name,
-      curator,
-      venue: selectedVenue,
-      date,
-      discipline,
+      address,
       description,
+      website,
     };
 
     axios
-      .post(`${process.env.REACT_APP_API_URL}/api/events`, requestBody)
+      .post(`${process.env.REACT_APP_API_URL}/api/venues`, requestBody)
       .then((response) => {
         // Reset the state
         setName("");
-        setCurator("");
-        setSelectedVenue(""); // Clear selected venue
-        setDate(null); // Clear date
-        setDiscipline("");
+        setAddress({
+          street: "",
+          number: "",
+          zip: "",
+          city: "",
+          country: "",
+        });
         setDescription("");
+        setWebsite("");
         setFormError("");
         setShowSuccessToast(true);
-        props.refreshEvents();
+        props.refreshVenues();
 
         setIsExpanded(false);
       })
@@ -67,22 +72,6 @@ const AddEventForm = (props) => {
   const handleButtonClick = () => {
     setIsExpanded(!isExpanded);
   };
-
-  const handleDateChange = (date) => {
-    setDate(date);
-  };
-
-  const handleVenueChange = (event) => {
-    setSelectedVenue(event.target.value);
-  };
-
-  useEffect(() => {
-    // Fetch venues from the database
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/venues`)
-      .then((response) => setVenues(response.data))
-      .catch((error) => console.log(error));
-  }, []);
 
   return (
     <div className="accordion accordion-container" id="accordionExample">
@@ -95,14 +84,12 @@ const AddEventForm = (props) => {
             type="button"
             onClick={handleButtonClick}
           >
-            <FontAwesomeIcon icon={faPlus} /> Add Event
+            <FontAwesomeIcon icon={faPlus} /> Add Venue
           </button>
         </h2>
         <div
           id="collapseOne"
-          className={`accordion-collapse collapse ${
-            isExpanded ? "show" : ""
-          }`}
+          className={`accordion-collapse collapse ${isExpanded ? "show" : ""}`}
           aria-labelledby="headingOne"
           data-bs-parent="#accordionExample"
         >
@@ -116,36 +103,50 @@ const AddEventForm = (props) => {
               onChange={(e) => setName(e.target.value)}
             />
 
-            <label>Curator:</label>
+            <label>Street:</label>
             <textarea
               type="text"
-              name="curator"
-              value={curator}
-              onChange={(e) => setCurator(e.target.value)}
+              name="street"
+              value={address.street}
+              onChange={(e) =>
+                setAddress({ ...address, street: e.target.value })
+              }
             />
-            <select
-              value={selectedVenue}
-              onChange={handleVenueChange}
-              className="select-venue-text"
-            >
-              <option value="">Select Venue</option>
-              {venues.map((venue, index) => (
-                <option key={index} value={venue._id}>
-                  {venue.name}
-                </option>
-              ))}
-            </select>
-            <DatePicker
-              selected={date}
-              onChange={handleDateChange}
-              placeholderText="Date"
+
+            <label>Number:</label>
+            <textarea
+              type="number"
+              name="number"
+              value={address.number}
+              onChange={(e) =>
+                setAddress({ ...address, number: e.target.value })
+              }
             />
-            <label>Discipline:</label>
+
+            <label>Zip:</label>
+            <textarea
+              type="number"
+              name="zip"
+              value={address.zip}
+              onChange={(e) => setAddress({ ...address, zip: e.target.value })}
+            />
+
+            <label>City:</label>
             <textarea
               type="text"
-              name="discipline"
-              value={discipline}
-              onChange={(e) => setDiscipline(e.target.value)}
+              name="city"
+              value={address.city}
+              onChange={(e) => setAddress({ ...address, city: e.target.value })}
+            />
+
+            <label>Country:</label>
+            <textarea
+              type="text"
+              name="country"
+              value={address.country}
+              onChange={(e) =>
+                setAddress({ ...address, country: e.target.value })
+              }
             />
 
             <label>Description:</label>
@@ -154,6 +155,14 @@ const AddEventForm = (props) => {
               name="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+            />
+
+            <label>Website:</label>
+            <textarea
+              type="text"
+              name="website"
+              value={website}
+              onChange={(e) => setWebsite(e.target.value)}
             />
 
             {formError && <p className="error-message">{formError}</p>}
@@ -175,10 +184,10 @@ const AddEventForm = (props) => {
         <Toast.Header>
           <strong className="me-auto">Success</strong>
         </Toast.Header>
-        <Toast.Body>Event successfully created!</Toast.Body>
+        <Toast.Body>Venue successfully created!</Toast.Body>
       </Toast>
     </div>
   );
 };
 
-export default AddEventForm;
+export default AddVenueForm;

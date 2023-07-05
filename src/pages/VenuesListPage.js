@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import VenueCard from "../components/VenueCard";
+import AddVenueForm from "../components/AddVenueForm";
 
 function VenuesListPage(props) {
   const [venues, setVenues] = useState([]);
@@ -18,8 +19,10 @@ function VenuesListPage(props) {
 
   return (
     <div>
+      <AddVenueForm refreshVenues={getAllVenues} />
       {venues.map((venue) => (
         <VenueCard key={venue._id} venue={venue} />
+
       ))}
     </div>
   );

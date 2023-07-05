@@ -97,4 +97,19 @@
   text-align: center;
 }
 
+.error-message {
+  color: red;
+  font-weight: 500;
+}
+
+
+.toast-container {
+  width:300px;
+  position: fixed;
+  top: 5rem;
+  right: 1rem;
+  z-index: 100;
+}
+
+
 
