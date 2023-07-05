@@ -7,6 +7,7 @@ import Homepage from "./pages/Homepage";
 import EventsListPage from "./pages/EventsListPage";
 import VenuesListPage from "./pages/VenuesListPage";
 import NavBar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 function App() {
 
@@ -23,6 +24,8 @@ function App() {
           <Route exact path="/events" element={<EventsListPage />} />
           <Route exact path="/venues" element={<VenuesListPage />} />
         </Routes>
+
+        <Footer />
      
     </div>
   );

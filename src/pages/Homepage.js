@@ -1,12 +1,48 @@
-import { Button } from 'react-bootstrap';
+import { Carousel } from "react-bootstrap";
+import image1 from "../images/image-1.jpeg";
+import image2 from "../images/image-2.jpeg";
+import image3 from "../images/image-3.jpeg";
 
-function Homepage () {
-    return (
+function Homepage() {
+  return (
     <div>
-        <h1>This is the Homepage</h1>
-        <Button className='btn-color'>Click me!</Button>
+      <Carousel>
+        <Carousel.Item className="carousel-item">
+          <img src={image1} alt="image 1" />
+          <div className="carousel-caption d-none d-md-block">
+            <h5>Yayoi Kusama in Berlin!</h5>
+            <p>
+              Yayoi Kusama is the superstar of contemporary art in Japan. In
+              2021, the Gropius Bau in Berlin dedicates the first comprehensive
+              retrospective in Germany to the artist.
+            </p>
+          </div>
+        </Carousel.Item>
+        <Carousel.Item className="carousel-item">
+          <img src={image2} alt="image 2" />
+          <div className="carousel-caption d-none d-md-block">
+            <h5 className="carousel-black-h5">Daniel Arsham | UNEARTHED </h5>
+            <p className="carousel-black-p">
+              With UNEARTHED, KÖNIG GALERIE presents Daniel Arsham‘s first solo
+              exhibition in Berlin. The show combines two separate but
+              interrelated bodies of work, that aim to create a scenario in
+              which objects from ancient past, are contextualized in the future.
+            </p>
+          </div>
+        </Carousel.Item>
+        <Carousel.Item className="carousel-item">
+          <img src={image3} alt="image 3" />
+          <div className="carousel-caption d-none d-md-block">
+            <h5 className="carousel-black-h5">Must-See Art Guide: Berlin</h5>
+            <p className="carousel-black-p">
+              Berlin Gallery Weekend is debuting its first-ever fall edition
+              this weekend with a focus on emerging artists.
+            </p>
+          </div>
+        </Carousel.Item>
+      </Carousel>
     </div>
-   )
+  );
 }
 
 export default Homepage;
