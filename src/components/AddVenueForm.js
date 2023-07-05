@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Button, Toast } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import { AuthContext } from "../context/auth.context";
 
 const AddVenueForm = (props) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const { isLoggedIn } = useContext(AuthContext);
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -47,7 +49,11 @@ const AddVenueForm = (props) => {
     };
 
     axios
-      .post(`${process.env.REACT_APP_API_URL}/api/venues`, requestBody)
+    .post(`${process.env.REACT_APP_API_URL}/api/venues`, requestBody, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      },
+    })
       .then((response) => {
         // Reset the state
         setName("");
@@ -75,6 +81,7 @@ const AddVenueForm = (props) => {
 
   return (
     <div className="accordion accordion-container" id="accordionExample">
+      { isLoggedIn && (
       <div className="accordion-item">
         <h2 className="accordion-header" id="headingOne">
           <button
@@ -173,6 +180,11 @@ const AddVenueForm = (props) => {
           </form>
         </div>
       </div>
+      )}
+
+{!isLoggedIn && (
+        <p className="not-logged-in-text">Please log in to add Venues!</p>
+      )}
 
       <Toast
         show={showSuccessToast}
