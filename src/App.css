@@ -128,17 +128,42 @@
   height: 100%;
 }
 
-.carousel-black-h5 {
-  color: black;
+.carousel-text-box {
+  background-color: aquamarine;
+  opacity: 75%;
+  border-radius: 5px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.carousel-black-p {
+.carousel h5 {
   color: black;
+  opacity: 100%;
 }
 
-.footer {
+.carousel p {
+  color: black;
+  opacity: 100%;
+}
+
+.our-footer {
   background-color: aquamarine;
   height: 65px;
+}
+
+.footer-flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 20px ;
+}
+
+.footer-icons {
+  color: black;
 }
 
 

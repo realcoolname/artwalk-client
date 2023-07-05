@@ -45,7 +45,7 @@ function SignUpModal({ handleClose, handleSignUpSuccess, handleLogIn }) {
         authenticateUser()
       })
       .catch((error) => {
-        setErrorMessage(error);
+        setErrorMessage(error.response.data.message);
       });
   };
 
