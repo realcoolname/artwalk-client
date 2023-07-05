@@ -6,11 +6,17 @@ import { useParams, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 
 
+
 function EventCard({ event, refreshEvents, handleUpdateButtonClick }) {
   const { eventId } = useParams();
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
-  const { isLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn, user } = useContext(AuthContext);
+
+  const isEventOwner = event && user && event.owner === user._id;
+
+  console.log(event);
+  console.log(event.user, user._id);
 
   // DELETE EVENT
   const deleteEvent = () => {
@@ -42,6 +48,8 @@ function EventCard({ event, refreshEvents, handleUpdateButtonClick }) {
   const options = { day: "numeric", month: "short", year: "numeric" };
   const formattedDate = eventDate.toLocaleDateString(undefined, options);
 
+
+
   return event && (
     <div className='event-card'>
       <h1>IMAGE OF THE EVENT</h1> <hr/>
@@ -52,7 +60,7 @@ function EventCard({ event, refreshEvents, handleUpdateButtonClick }) {
       <p>{event.discipline}</p>
       <p>{event.description}</p>
       
-      { isLoggedIn && (
+      { isLoggedIn && isEventOwner && (
         <div>
       <Button className='btn-color' onClick={deleteEvent}>Delete</Button> <br/>
       <Button className="btn-color" onClick={handleUpdate}>Update</Button>
