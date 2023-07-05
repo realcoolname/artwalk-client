@@ -45,7 +45,7 @@ function SignUpModal({ handleClose, handleSignUpSuccess, handleLogIn }) {
         authenticateUser()
       })
       .catch((error) => {
-        setErrorMessage(error);
+        setErrorMessage(error.response.data.message);
       });
   };
 
@@ -113,7 +113,7 @@ function SignUpModal({ handleClose, handleSignUpSuccess, handleLogIn }) {
             {errorMessage && <p className="error-message">{errorMessage}</p>}
 
             <p className="have-account">
-              Already have an account? 👉 <Link to={"/"}> Login</Link>
+              Already have an account? 👉 Please log in! 
             </p>
           </div>
         </Modal.Body>
