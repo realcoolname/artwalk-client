@@ -163,6 +163,8 @@ const AddEventForm = (props) => {
                 onChange={(e) => setDescription(e.target.value)}
               />
 
+              {formError && <p className="error-message">{formError}</p>}
+
               <button type="submit" className="btn-color">
                 Submit
               </button>
