@@ -16,7 +16,7 @@ function EventCard({ event, refreshEvents, handleUpdateButtonClick }) {
   const isEventOwner = event && user && event.owner === user._id;
 
   console.log(event);
-  console.log(event.user, user._id);
+  
 
   // DELETE EVENT
   const deleteEvent = () => {
