@@ -183,7 +183,7 @@ const AddVenueForm = (props) => {
       )}
 
 {!isLoggedIn && (
-        <p className="not-logged-in-text">Please log in to add Venues!</p>
+        <p className="not-logged-in-text">Please log in to add a Venue!</p>
       )}
 
       <Toast

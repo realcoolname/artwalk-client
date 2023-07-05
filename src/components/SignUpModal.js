@@ -113,7 +113,7 @@ function SignUpModal({ handleClose, handleSignUpSuccess, handleLogIn }) {
             {errorMessage && <p className="error-message">{errorMessage}</p>}
 
             <p className="have-account">
-              Already have an account? 👉 Please log in! 
+            Already have an account? 👉 <Link to={"/"}> Login</Link>
             </p>
           </div>
         </Modal.Body>
