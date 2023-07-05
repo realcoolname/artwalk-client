@@ -1,13 +1,16 @@
 import React from "react";
 import { Button } from "react-bootstrap";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/auth.context";
+
 
 function EventCard({ event, refreshEvents, handleUpdateButtonClick }) {
   const { eventId } = useParams();
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
+  const { isLoggedIn } = useContext(AuthContext);
 
   // DELETE EVENT
   const deleteEvent = () => {
@@ -48,12 +51,13 @@ function EventCard({ event, refreshEvents, handleUpdateButtonClick }) {
       <p>{formattedDate}</p>
       <p>{event.discipline}</p>
       <p>{event.description}</p>
-      <br/>
-      <Button className='btn-color' onClick={deleteEvent}>Delete</Button> <br/>
-      <Button className="btn-color" onClick={handleUpdate}>
-          Update
-        </Button>
       
+      { isLoggedIn && (
+        <div>
+      <Button className='btn-color' onClick={deleteEvent}>Delete</Button> <br/>
+      <Button className="btn-color" onClick={handleUpdate}>Update</Button>
+      </div>
+      )}
     </div>
   );
 }
