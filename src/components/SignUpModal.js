@@ -5,8 +5,6 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../context/auth.context";
 
-
-
 function SignUpModal({ handleClose, handleSignUpSuccess, handleLogIn }) {
   const [show, setShow] = useState(true);
 
@@ -15,7 +13,7 @@ function SignUpModal({ handleClose, handleSignUpSuccess, handleLogIn }) {
   const [name, setName] = useState("");
 
   const [errorMessage, setErrorMessage] = useState(undefined);
-  const { authenticateUser } = useContext(AuthContext);
+  const { authenticateUser, storeToken } = useContext(AuthContext);
 
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
@@ -42,12 +40,12 @@ function SignUpModal({ handleClose, handleSignUpSuccess, handleLogIn }) {
         setEmail("");
         setPassword("");
         setName("");
-
         handleSignUpSuccess();
-        handleLogIn(email, password);
+        storeToken(response.data.authToken) 
+        authenticateUser()
       })
       .catch((error) => {
-        setErrorMessage(error.response.data.message);
+        setErrorMessage(error);
       });
   };
 
@@ -64,7 +62,10 @@ function SignUpModal({ handleClose, handleSignUpSuccess, handleLogIn }) {
         </Modal.Header>
         <Modal.Body>
           <div className="SignupPage">
-            <form onSubmit={handleSignupSubmit} className="signup-form-container">
+            <form
+              onSubmit={handleSignupSubmit}
+              className="signup-form-container"
+            >
               <label className="label-text">Full Name:</label>
               <input
                 className="input-field"

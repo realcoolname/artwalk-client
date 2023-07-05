@@ -1,13 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Button, Toast } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
+import { AuthContext } from "../context/auth.context";
 
 const AddEventForm = (props) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const { isLoggedIn } = useContext(AuthContext);
 
   const [name, setName] = useState("");
   const [curator, setCurator] = useState("");
@@ -46,7 +48,11 @@ const AddEventForm = (props) => {
     };
 
     axios
-      .post(`${process.env.REACT_APP_API_URL}/api/events`, requestBody)
+      .post(`${process.env.REACT_APP_API_URL}/api/events`, requestBody, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      })
       .then((response) => {
         // Reset the state
         setName("");
@@ -86,84 +92,88 @@ const AddEventForm = (props) => {
 
   return (
     <div className="accordion accordion-container" id="accordionExample">
-      <div className="accordion-item">
-        <h2 className="accordion-header" id="headingOne">
-          <button
-            className={`accordion-button ${
-              isExpanded ? "" : "collapsed"
-            } accordion-width`}
-            type="button"
-            onClick={handleButtonClick}
-          >
-            <FontAwesomeIcon icon={faPlus} /> Add Event
-          </button>
-        </h2>
-        <div
-          id="collapseOne"
-          className={`accordion-collapse collapse ${
-            isExpanded ? "show" : ""
-          }`}
-          aria-labelledby="headingOne"
-          data-bs-parent="#accordionExample"
-        >
-          <form onSubmit={handleSubmit} className="add-event-form">
-            {/* <input type="text" placeholder="Image" /> */}
-            <label>Name:</label>
-            <input
-              type="text"
-              name="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-
-            <label>Curator:</label>
-            <textarea
-              type="text"
-              name="curator"
-              value={curator}
-              onChange={(e) => setCurator(e.target.value)}
-            />
-            <select
-              value={selectedVenue}
-              onChange={handleVenueChange}
-              className="select-venue-text"
+      {isLoggedIn && (
+        <div className="accordion-item">
+          <h2 className="accordion-header" id="headingOne">
+            <button
+              className={`accordion-button ${
+                isExpanded ? "" : "collapsed"
+              } accordion-width`}
+              type="button"
+              onClick={handleButtonClick}
             >
-              <option value="">Select Venue</option>
-              {venues.map((venue, index) => (
-                <option key={index} value={venue._id}>
-                  {venue.name}
-                </option>
-              ))}
-            </select>
-            <DatePicker
-              selected={date}
-              onChange={handleDateChange}
-              placeholderText="Date"
-            />
-            <label>Discipline:</label>
-            <textarea
-              type="text"
-              name="discipline"
-              value={discipline}
-              onChange={(e) => setDiscipline(e.target.value)}
-            />
-
-            <label>Description:</label>
-            <textarea
-              type="text"
-              name="description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
-
-            {formError && <p className="error-message">{formError}</p>}
-
-            <button type="submit" className="btn-color">
-              Submit
+              <FontAwesomeIcon icon={faPlus} /> Add Event
             </button>
-          </form>
+          </h2>
+          <div
+            id="collapseOne"
+            className={`accordion-collapse collapse ${
+              isExpanded ? "show" : ""
+            }`}
+            aria-labelledby="headingOne"
+            data-bs-parent="#accordionExample"
+          >
+            <form onSubmit={handleSubmit} className="add-event-form">
+              {/* <input type="text" placeholder="Image" /> */}
+              <label>Name:</label>
+              <input
+                type="text"
+                name="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+
+              <label>Curator:</label>
+              <textarea
+                type="text"
+                name="curator"
+                value={curator}
+                onChange={(e) => setCurator(e.target.value)}
+              />
+              <select
+                value={selectedVenue}
+                onChange={handleVenueChange}
+                className="select-venue-text"
+              >
+                <option value="">Select Venue</option>
+                {venues.map((venue, index) => (
+                  <option key={index} value={venue._id}>
+                    {venue.name}
+                  </option>
+                ))}
+              </select>
+              <DatePicker
+                selected={date}
+                onChange={handleDateChange}
+                placeholderText="Date"
+              />
+              <label>Discipline:</label>
+              <textarea
+                type="text"
+                name="discipline"
+                value={discipline}
+                onChange={(e) => setDiscipline(e.target.value)}
+              />
+
+              <label>Description:</label>
+              <textarea
+                type="text"
+                name="description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+
+              <button type="submit" className="btn-color">
+                Submit
+              </button>
+            </form>
+          </div>
         </div>
-      </div>
+      )}
+
+      {!isLoggedIn && (
+        <p className="not-logged-in-text">Please log in to add Events!</p>
+      )}
 
       <Toast
         show={showSuccessToast}
