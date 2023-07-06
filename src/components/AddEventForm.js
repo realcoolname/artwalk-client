@@ -79,6 +79,8 @@ const AddEventForm = (props) => {
         },
       })
       .then((response) => {
+        // Reset the image input field
+        this.fileInput.value = "";
         // Reset the state
         setImageUrl("");
         setName("");
@@ -145,7 +147,7 @@ const AddEventForm = (props) => {
                 selected={date}
                 onChange={handleDateChange}
                 placeholderText="Date"
-                style={{ marginTop: "1em"}}
+                style={{ marginTop: "1em" }}
               />
 
               <label>Name:</label>
@@ -169,17 +171,20 @@ const AddEventForm = (props) => {
                 value={selectedVenue}
                 onChange={handleVenueChange}
                 className="select-venue-text add-forms-input-field"
-                style={{ marginTop: "1em ", paddingTop: "0.2em", paddingBottom: "0.2em"}}
+                style={{
+                  marginTop: "1em ",
+                  paddingTop: "0.2em",
+                  paddingBottom: "0.2em",
+                }}
               >
                 <option value="">Select Venue</option>
                 {venues.map((venue, index) => (
                   <option key={index} value={venue._id}>
                     {venue.name}
                   </option>
-                  
                 ))}
               </select>
-              
+
               <label>Discipline:</label>
               <textarea
                 type="text"
@@ -196,10 +201,14 @@ const AddEventForm = (props) => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 className="add-forms-input-field"
-                style={{marginBottom: "1em"}}
+                style={{ marginBottom: "1em" }}
               />
 
-              <input type="file" onChange={(e) => handleFileUpload(e)} />
+              <input
+                type="file"
+                onChange={(e) => handleFileUpload(e)}
+                ref={(ref) => (this.fileInput = ref)} // Add this line to create a reference to the input element
+              />
 
               {formError && <p className="error-message">{formError}</p>}
 
