@@ -79,8 +79,6 @@ const AddEventForm = (props) => {
         },
       })
       .then((response) => {
-        // Reset the image input field
-        this.fileInput.value = "";
         // Reset the state
         setImageUrl("");
         setName("");
@@ -204,11 +202,7 @@ const AddEventForm = (props) => {
                 style={{ marginBottom: "1em" }}
               />
 
-              <input
-                type="file"
-                onChange={(e) => handleFileUpload(e)}
-                ref={(ref) => (this.fileInput = ref)} // Add this line to create a reference to the input element
-              />
+              <input type="file" onChange={(e) => handleFileUpload(e)} />
 
               {formError && <p className="error-message">{formError}</p>}
 
