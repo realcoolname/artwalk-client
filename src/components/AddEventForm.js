@@ -115,12 +115,20 @@ const AddEventForm = (props) => {
           >
             <form onSubmit={handleSubmit} className="add-event-form">
               {/* <input type="text" placeholder="Image" /> */}
+              <DatePicker
+                selected={date}
+                onChange={handleDateChange}
+                placeholderText="Date"
+                style={{ marginTop: "1em"}}
+              />
+
               <label>Name:</label>
               <input
                 type="text"
                 name="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                className="add-forms-input-field"
               />
 
               <label>Curator:</label>
@@ -129,30 +137,30 @@ const AddEventForm = (props) => {
                 name="curator"
                 value={curator}
                 onChange={(e) => setCurator(e.target.value)}
+                className="add-forms-input-field"
               />
               <select
                 value={selectedVenue}
                 onChange={handleVenueChange}
-                className="select-venue-text"
+                className="select-venue-text add-forms-input-field"
+                style={{ marginTop: "1em ", paddingTop: "0.2em", paddingBottom: "0.2em"}}
               >
                 <option value="">Select Venue</option>
                 {venues.map((venue, index) => (
                   <option key={index} value={venue._id}>
                     {venue.name}
                   </option>
+                  
                 ))}
               </select>
-              <DatePicker
-                selected={date}
-                onChange={handleDateChange}
-                placeholderText="Date"
-              />
+              
               <label>Discipline:</label>
               <textarea
                 type="text"
                 name="discipline"
                 value={discipline}
                 onChange={(e) => setDiscipline(e.target.value)}
+                className="add-forms-input-field"
               />
 
               <label>Description:</label>
@@ -161,6 +169,8 @@ const AddEventForm = (props) => {
                 name="description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
+                className="add-forms-input-field"
+                style={{marginBottom: "1em"}}
               />
 
               {formError && <p className="error-message">{formError}</p>}
@@ -174,7 +184,7 @@ const AddEventForm = (props) => {
       )}
 
       {!isLoggedIn && (
-        <p className="not-logged-in-text">Please log in to add Events!</p>
+        <p className="not-logged-in-text">Please log in to add an Event!</p>
       )}
 
       <Toast

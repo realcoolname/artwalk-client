@@ -5,10 +5,10 @@ import SignUpModal from "./SignUpModal.js";
 import LogInModal from "./LogInModal.js";
 import { AuthContext } from "../context/auth.context.js";
 
-function NavBar( { isLoggedIn, handleLogOut, handleLogIn } ) {
+function NavBar({ isLoggedIn, user }) {
   const [showSignUpModal, setShowSignUpModal] = useState(false);
   const [showLogInModal, setShowLogInModal] = useState(false);
-  const { logOutUser } = useContext(AuthContext)
+  const { logOutUser } = useContext(AuthContext);
 
   const handleOpenSignUpModal = () => {
     setShowSignUpModal(true);
@@ -47,40 +47,40 @@ function NavBar( { isLoggedIn, handleLogOut, handleLogIn } ) {
           </Nav>
 
           <Nav className="navbar-nav ms-auto nav-margin-right">
-            
-          {!isLoggedIn && (
-            <>
-              <Nav.Link
-                onClick={handleOpenLogInModal}
-                className="nav-link"
-              >
-                Log In
+            {!isLoggedIn && (
+              <>
+                <Nav.Link onClick={handleOpenLogInModal} className="nav-link">
+                  Log In
+                </Nav.Link>
+                <Nav.Link onClick={handleOpenSignUpModal} className="nav-link">
+                  Sign Up
+                </Nav.Link>
+              </>
+            )}
+            {isLoggedIn && (
+              <Nav.Link onClick={logOutUser} className="nav-link">
+                Log Out
               </Nav.Link>
-              <Nav.Link
-                onClick={handleOpenSignUpModal}
-                className="nav-link"
-              >
-                Sign Up
-              </Nav.Link>
-            </>
-          )}
-          {isLoggedIn && (
-            <Nav.Link onClick={logOutUser} className="nav-link">
-              Log Out
-            </Nav.Link>
-          )}
-
-        </Nav>
+            )}
+            {isLoggedIn && (
+              <p className="user-welcome-text">Hi, {user?.name} !</p>
+            )}
+          </Nav>
         </Navbar.Collapse>
       </Navbar>
 
       {showLogInModal && (
-        <LogInModal handleClose={() => setShowLogInModal(false)} 
-        handleLogInSuccess={handleLogInSuccess} />
+        <LogInModal
+          handleClose={() => setShowLogInModal(false)}
+          handleLogInSuccess={handleLogInSuccess}
+        />
       )}
       {showSignUpModal && (
-        <SignUpModal handleClose={() => setShowSignUpModal(false)} 
-        handleSignUpSuccess={handleSignUpSuccess} handleLogIn={handleLogIn} />
+        <SignUpModal
+          handleClose={() => setShowSignUpModal(false)}
+          showSignUpModal={showSignUpModal}
+          openLogin={handleOpenLogInModal}
+        />
       )}
     </>
   );

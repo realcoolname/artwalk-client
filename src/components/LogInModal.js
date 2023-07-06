@@ -62,6 +62,7 @@ function LogInModal({ handleClose, handleLogInSuccess }) {
       onHide={handleModalClose}
       backdrop="static"
       keyboard={false}
+      className="modal-container"
     >
       <Modal.Header closeButton>
         <Modal.Title>Log In</Modal.Title>

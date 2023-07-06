@@ -11,12 +11,13 @@ import Footer from "./components/Footer";
 
 function App() {
 
-  const { isLoggedIn } = useContext(AuthContext)
+  const { isLoggedIn, user } = useContext(AuthContext)
 
   return (
     <div className="App">
         <NavBar   
             isLoggedIn={isLoggedIn} 
+            user={user}
             />
 
         <Routes>

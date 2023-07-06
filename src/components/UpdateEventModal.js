@@ -8,7 +8,7 @@ function UpdateEventModal({ event, onClose, refreshEvents }) {
   const [name, setName] = useState(event.name || "");
   const [curator, setCurator] = useState(event.curator || "");
   const [selectedVenue, setSelectedVenue] = useState(event.venue || null);
-  const [date, setDate] = useState(event.date || "");
+  const [date, setDate] = useState(event.date ? event.date.split("T")[0] : "");
   const [discipline, setDiscipline] = useState(event.discipline || "");
   const [description, setDescription] = useState(event.description || "");
   const [venues, setVenues] = useState([]);
@@ -48,12 +48,20 @@ function UpdateEventModal({ event, onClose, refreshEvents }) {
   };
 
   return (
-    <Modal show={true} onHide={closeModal}>
+    <Modal show={true} onHide={closeModal} className="modal-container">
       <Modal.Header closeButton>
         <Modal.Title>Update Event</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="update-event-container">
+
+        <label>Date:</label>
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+          />
+
           <label>Name:</label>
           <input
             type="text"
@@ -77,13 +85,6 @@ function UpdateEventModal({ event, onClose, refreshEvents }) {
             getOptionValue={(option) => option._id}
           />
 
-          <label>Date:</label>
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-          />
-
           <label>Discipline:</label>
           <input
             type="text"
@@ -96,13 +97,14 @@ function UpdateEventModal({ event, onClose, refreshEvents }) {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
-
+          <Button type="submit" variant="primary" style={{ marginTop: "1em", marginBottom: "0.5em" }}>
+            Save Changes
+          </Button>
+          
           <Button variant="secondary" onClick={closeModal}>
             Cancel
           </Button>
-          <Button type="submit" variant="primary">
-            Save Changes
-          </Button>
+          
         </form>
       </Modal.Body>
     </Modal>

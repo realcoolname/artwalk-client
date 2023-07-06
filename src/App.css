@@ -1,4 +1,7 @@
 .App {
+  min-height: 100vh; 
+  display: flex;
+  flex-direction: column;
   text-align: center;
 }
 
@@ -32,7 +35,7 @@
 }
 
 .sign-up-btn { 
-  margin-left: 1em;
+  margin-left: 0.3em;
   background-color: rgb(224, 112, 241);
   border-style: none;
 }
@@ -52,6 +55,18 @@
 .nav-margin-right {
   margin-right: 1em;
 }
+
+.user-welcome-text {
+  display: flex;
+  
+  font-size: small;
+  padding-left: 2em;
+}
+
+.modal-container .modal-content {
+  background-color: aquamarine;
+}
+
 
 .login-form-container {
   background-color: aquamarine;
@@ -91,6 +106,17 @@
   justify-content: center;
 }
 
+.add-forms-input-field {
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  
+}
+
+form input {
+  margin-top: 0.3em;
+  margin-bottom: 0.3em;
+}
+
 
 .select-venue-text {
   display: flex;
@@ -113,10 +139,11 @@
 
 
 .not-logged-in-text {
-  background-color: black;
+  background-color: rgb(155, 150, 150);
   color: aquamarine;
-  padding: 0.5em;
-  border-radius: 0.2em;
+  padding: 0.7em;
+  width: 100vw;
+  margin-top: 0em;
 }
 .carousel-item {
   height: 850px;
@@ -129,44 +156,73 @@
 }
 
 .carousel-text-box {
-  background-color: aquamarine;
-  opacity: 75%;
+  background-color: rgb(65, 66, 66);
+  opacity: 90%;
   border-radius: 5px;
   height: 100px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-bottom: 30em;
+  padding: 1em;
 }
 
 .carousel h5 {
-  color: black;
-  opacity: 100%;
+  color: rgb(255, 255, 255);
+  padding-top: 1em;;
+  
 }
 
 .carousel p {
-  color: black;
-  opacity: 100%;
+  color: rgb(255, 255, 255);
 }
 
 .our-footer {
   background-color: aquamarine;
-  height: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 45px;
+  width: 100%;
+  
 }
 
 .footer-flex {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   padding: 20px ;
+}
+
+.text-muted {
+  margin: 0
 }
 
 .footer-icons {
   color: black;
 }
 
+.update-event-container {
+  background-color: aquamarine;
+  display: flex;
+  flex-direction: column;
+}
 
+.event-card-buttons {
+  display: flex;
+  flex-direction: row;
+}
 
+.update-btn {
+  background-color: aquamarine;
+  color:rgb(76, 77, 77);
+  border-style: none;
+}
 
-
+.delete-btn {
+  background-color: rgb(76, 77, 77);
+  color:rgb(255, 255, 255);
+  border-style: none;
+}

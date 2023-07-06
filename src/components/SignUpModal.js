@@ -4,9 +4,11 @@ import Modal from "react-bootstrap/Modal";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../context/auth.context";
+import LogInModal from "./LogInModal";
 
-function SignUpModal({ handleClose, handleSignUpSuccess, handleLogIn }) {
-  const [show, setShow] = useState(true);
+function SignUpModal({ handleClose, showSignUpModal, openLogin }) {
+  // const [showSignUpModal, setShowSignupModal] = useState(true);
+  // const [showLoginModal, setShowLoginModal] = useState(false);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,12 +22,19 @@ function SignUpModal({ handleClose, handleSignUpSuccess, handleLogIn }) {
   const handleName = (e) => setName(e.target.value);
 
   useEffect(() => {
-    setShow(true);
+    // setShowSignupModal(true);
   }, []);
 
   const handleModalClose = () => {
-    setShow(false);
+    //setShowSignupModal(false);
     handleClose();
+  };
+
+  const handleLoginLinkClick = () => {
+    handleClose()
+    openLogin()
+    //setShowSignupModal(false);
+    // setShowLoginModal(true);
   };
 
   const handleSignupSubmit = (e) => {
@@ -36,13 +45,13 @@ function SignUpModal({ handleClose, handleSignUpSuccess, handleLogIn }) {
     axios
       .post(`${process.env.REACT_APP_API_URL}/auth/signup`, requestBody)
       .then((response) => {
-        handleModalClose();
+        
         setEmail("");
         setPassword("");
         setName("");
-        handleSignUpSuccess();
-        storeToken(response.data.authToken) 
-        authenticateUser()
+        handleClose();
+        storeToken(response.data.authToken);
+        authenticateUser();
       })
       .catch((error) => {
         setErrorMessage(error.response.data.message);
@@ -52,10 +61,11 @@ function SignUpModal({ handleClose, handleSignUpSuccess, handleLogIn }) {
   return (
     <>
       <Modal
-        show={show}
+        show={showSignUpModal}
         onHide={handleModalClose}
         backdrop="static"
         keyboard={false}
+        className="modal-container"
       >
         <Modal.Header closeButton>
           <Modal.Title>Sign Up</Modal.Title>
@@ -113,9 +123,22 @@ function SignUpModal({ handleClose, handleSignUpSuccess, handleLogIn }) {
             {errorMessage && <p className="error-message">{errorMessage}</p>}
 
             <p className="have-account">
-            Already have an account? 👉 <Link to={"/"}> Login</Link>
+              Already have an account? 👉
+              <Link onClick={handleLoginLinkClick}>
+                Login
+              </Link>
             </p>
           </div>
+
+         {/*  {showLoginModal && (
+            <LogInModal
+              handleClose={() => {
+                // setShowLoginModal(false);
+                handleModalClose();
+              }}
+              handleLogInSuccess={handleSignUpSuccess}
+            />
+          )} */}
         </Modal.Body>
       </Modal>
     </>

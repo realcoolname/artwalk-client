@@ -108,52 +108,58 @@ const AddVenueForm = (props) => {
               name="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              className="add-forms-input-field"
             />
 
             <label>Street:</label>
-            <textarea
+            <input
               type="text"
               name="street"
               value={address.street}
               onChange={(e) =>
                 setAddress({ ...address, street: e.target.value })
               }
+              className="add-forms-input-field"
             />
 
             <label>Number:</label>
-            <textarea
+            <input
               type="number"
               name="number"
               value={address.number}
               onChange={(e) =>
                 setAddress({ ...address, number: e.target.value })
               }
+              className="add-forms-input-field"
             />
 
             <label>Zip:</label>
-            <textarea
+            <input
               type="number"
               name="zip"
               value={address.zip}
               onChange={(e) => setAddress({ ...address, zip: e.target.value })}
+              className="add-forms-input-field"
             />
 
             <label>City:</label>
-            <textarea
+            <input
               type="text"
               name="city"
               value={address.city}
               onChange={(e) => setAddress({ ...address, city: e.target.value })}
+              className="add-forms-input-field"
             />
 
             <label>Country:</label>
-            <textarea
+            <input
               type="text"
               name="country"
               value={address.country}
               onChange={(e) =>
                 setAddress({ ...address, country: e.target.value })
               }
+              className="add-forms-input-field"
             />
 
             <label>Description:</label>
@@ -162,14 +168,17 @@ const AddVenueForm = (props) => {
               name="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+              className="add-forms-input-field"
             />
 
             <label>Website:</label>
-            <textarea
+            <input
               type="text"
               name="website"
               value={website}
               onChange={(e) => setWebsite(e.target.value)}
+              className="add-forms-input-field"
+              style={{ marginBottom: "1em"}}
             />
 
             {formError && <p className="error-message">{formError}</p>}

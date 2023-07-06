@@ -61,9 +61,9 @@ function EventCard({ event, refreshEvents, handleUpdateButtonClick }) {
       <p>{event.description}</p>
       
       { isLoggedIn && isEventOwner && (
-        <div>
-      <Button className='btn-color' onClick={deleteEvent}>Delete</Button> <br/>
-      <Button className="btn-color" onClick={handleUpdate}>Update</Button>
+        <div classname="event-card-buttons">
+      <Button className='delete-btn' onClick={deleteEvent}>Delete</Button> <br/>
+      <Button className="update-btn" onClick={handleUpdate}>Update</Button>
       </div>
       )}
     </div>
