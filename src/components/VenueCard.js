@@ -1,4 +1,5 @@
 import React from "react";
+import service from "../api/service";
 
 
 function VenueCard(props) {
@@ -6,7 +7,7 @@ function VenueCard(props) {
 
   return (
     <div className='event-card'>
-      <h1>IMAGE OF THE VENUE</h1>
+      <img src={venue.imageUrl} alt="venue" width="200" />
       <h2>{venue.name}</h2>
       <p>{venue.address.street} {venue.address.number}, {venue.address.zip}</p>
       <p>{venue.address.city}, {venue.address.country}</p>

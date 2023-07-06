@@ -6,11 +6,14 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 import { AuthContext } from "../context/auth.context";
+// import the service file since we need it to send/get the data to/from the server
+import service from "../api/service";
 
 const AddEventForm = (props) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const { isLoggedIn } = useContext(AuthContext);
 
+  const [imageUrl, setImageUrl] = useState("");
   const [name, setName] = useState("");
   const [curator, setCurator] = useState("");
   const [venues, setVenues] = useState([]);
@@ -22,11 +25,32 @@ const AddEventForm = (props) => {
   const [formError, setFormError] = useState(""); // State variable for form error message
   const [showSuccessToast, setShowSuccessToast] = useState(false); // State variable for success toast visibility
 
+  // ******** this method handles the file upload ********
+  const handleFileUpload = (e) => {
+    // console.log("The file to be uploaded is: ", e.target.files[0]);
+
+    const uploadData = new FormData();
+
+    // imageUrl => this name has to be the same as in the model since we pass
+    // req.body to .create() method when creating a new movie in '/api/movies' POST route
+    uploadData.append("imageUrl", e.target.files[0]);
+
+    service
+      .uploadImage(uploadData)
+      .then((response) => {
+        // console.log("response is: ", response);
+        // response carries "fileUrl" which we can use to update the state
+        setImageUrl(response.fileUrl);
+      })
+      .catch((err) => console.log("Error while uploading the file: ", err));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     // Validate the form fields
     if (
+      !imageUrl ||
       !name ||
       !curator ||
       !selectedVenue ||
@@ -39,6 +63,7 @@ const AddEventForm = (props) => {
     }
 
     const requestBody = {
+      imageUrl,
       name,
       curator,
       venue: selectedVenue,
@@ -55,6 +80,7 @@ const AddEventForm = (props) => {
       })
       .then((response) => {
         // Reset the state
+        setImageUrl("");
         setName("");
         setCurator("");
         setSelectedVenue(""); // Clear selected venue
@@ -162,6 +188,8 @@ const AddEventForm = (props) => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
+
+              <input type="file" onChange={(e) => handleFileUpload(e)} />
 
               {formError && <p className="error-message">{formError}</p>}
 
