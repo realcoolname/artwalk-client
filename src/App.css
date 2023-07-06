@@ -226,3 +226,37 @@ form input {
   color:rgb(255, 255, 255);
   border-style: none;
 }
+
+.venue-card {
+  border-radius: 7px;
+  box-shadow: 0 3px 2px rgba(0, 0.1, 0, 0.2);
+  margin: 4rem 4rem;
+  padding: 2rem;
+  background-color: #EBFFF8;
+} 
+
+.venue-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+.background {
+  background-color: #F5E7E0;
+}
+
+.image-container {
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.venue-image {
+  width: 60%;
+  height: auto;
+  object-fit: cover;
+}
+
