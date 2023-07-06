@@ -50,23 +50,36 @@ function EventCard({ event, refreshEvents, handleUpdateButtonClick }) {
   const formattedDate = eventDate.toLocaleDateString(undefined, options);
 
 
-
-  return event && (
-    <div className='event-card'>
-      <img src={event.imageUrl} alt="event" width="200" />
-      <h2>{event.name}</h2>
-      <p>Curated by: {event.curator}</p>
-      <p>Venue: {event.venue?.name}</p>
-      <p>{formattedDate}</p>
-      <p>{event.discipline}</p>
-      <p>{event.description}</p>
-      
-      { isLoggedIn && isEventOwner && (
-        <div classname="event-card-buttons">
-      <Button className='delete-btn' onClick={deleteEvent}>Delete</Button> <br/>
-      <Button className="update-btn" onClick={handleUpdate}>Update</Button>
+  return (
+    <div className="col-lg-4 col-md-6 mb-4">
+      <div className="card card-container">
+      <div className="card-img-container">
+        <img
+          src={event.imageUrl}
+          className="card-img-top"
+          alt="event"
+          
+        />
+        </div>
+        <div className="card-body event-card-body">
+          <h2 className="card-title" >{event.name}</h2>
+          <p className="card-text">Curated by: {event.curator}</p>
+          <p className="card-text">Venue: {event.venue?.name}</p>
+          <p className="card-text">{formattedDate}</p>
+          <p className="card-text">{event.discipline}</p>
+          <p className="card-text">{event.description}</p>
+          {isLoggedIn && isEventOwner && (
+            <div className="d-flex event-card-buttons">
+              <Button className="btn btn-primary update-btn" onClick={handleUpdate}>
+                Update
+              </Button>
+              <Button className="btn btn-danger delete-btn" onClick={deleteEvent}>
+                Delete
+              </Button>
+            </div>
+          )}
+        </div>
       </div>
-      )}
     </div>
   );
 }

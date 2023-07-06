@@ -30,21 +30,24 @@ function EventsListPage(props) {
     getAllEvents();
   }, []);
 
+  
   return (
-    <div>
+    <div className="container">
       <AddEventForm refreshEvents={getAllEvents} />
-      {events.length === 0 ? (
-        <p>Currently, there are no events to show.</p>
-      ) : (
-        events.map((event) => (
-          <EventCard
-            key={event._id}
-            event={event}
-            refreshEvents={getAllEvents}
-            handleUpdateButtonClick={handleUpdateButtonClick}
-          />
-        ))
-      )}
+      <div className="row">
+        {events.length === 0 ? (
+          <p>Currently, there are no events to show.</p>
+        ) : (
+          events.map((event) => (
+            <EventCard
+              key={event._id}
+              event={event}
+              refreshEvents={getAllEvents}
+              handleUpdateButtonClick={handleUpdateButtonClick}
+            />
+          ))
+        )}
+      </div>
       {showUpdateModal && (
         <UpdateEventModal
           event={selectedEvent}

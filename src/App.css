@@ -213,16 +213,43 @@ form input {
 .event-card-buttons {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  
 }
 
 .update-btn {
   background-color: aquamarine;
   color:rgb(76, 77, 77);
   border-style: none;
+  margin-bottom: 0.5em;
+  margin-right: 2em
 }
 
 .delete-btn {
   background-color: rgb(76, 77, 77);
   color:rgb(255, 255, 255);
   border-style: none;
+  margin-bottom: 0.5em;
 }
+
+.card-img-container {
+  height: 200px; /* Adjust the desired height */
+  overflow: hidden;
+}
+
+.card-img-container img {
+  object-fit: cover;
+  height: 100%;
+}
+  
+.event-card-body{
+background-color: #EBFFF8;
+  }
+
+  .card-container {
+    border-radius: 7px;
+    box-shadow: 0 3px 2px rgba(0, 0.1, 0, 0.2);
+  }
+
+
+
