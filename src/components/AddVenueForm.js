@@ -43,7 +43,6 @@ const AddVenueForm = (props) => {
         setImageUrl(response.fileUrl);
       })
       .catch((err) => console.log("Error while uploading the file: ", err));
-
   };
 
   const handleSubmit = (e) => {
@@ -70,7 +69,7 @@ const AddVenueForm = (props) => {
       address,
       description,
       website,
-      imageUrl: imageUrl
+      imageUrl: imageUrl,
     };
 
     axios
@@ -105,14 +104,15 @@ const AddVenueForm = (props) => {
     setIsExpanded(!isExpanded);
   };
 
-  
   return (
     <div className="accordion accordion-container" id="accordionExample">
       {isLoggedIn ? (
         <div className="accordion-item">
           <h2 className="accordion-header" id="headingOne">
             <button
-              className={`accordion-button ${isExpanded ? '' : 'collapsed'} accordion-width`}
+              className={`accordion-button ${
+                isExpanded ? "" : "collapsed"
+              } accordion-width`}
               type="button"
               onClick={handleButtonClick}
             >
@@ -121,7 +121,9 @@ const AddVenueForm = (props) => {
           </h2>
           <div
             id="collapseOne"
-            className={`accordion-collapse collapse ${isExpanded ? 'show' : ''}`}
+            className={`accordion-collapse collapse ${
+              isExpanded ? "show" : ""
+            }`}
             aria-labelledby="headingOne"
             data-bs-parent="#accordionExample"
           >
@@ -162,7 +164,9 @@ const AddVenueForm = (props) => {
                 type="number"
                 name="zip"
                 value={address.zip}
-                onChange={(e) => setAddress({ ...address, zip: e.target.value })}
+                onChange={(e) =>
+                  setAddress({ ...address, zip: e.target.value })
+                }
                 className="add-forms-input-field"
               />
 
@@ -171,7 +175,9 @@ const AddVenueForm = (props) => {
                 type="text"
                 name="city"
                 value={address.city}
-                onChange={(e) => setAddress({ ...address, city: e.target.value })}
+                onChange={(e) =>
+                  setAddress({ ...address, city: e.target.value })
+                }
                 className="add-forms-input-field"
               />
 
@@ -202,12 +208,12 @@ const AddVenueForm = (props) => {
                 value={website}
                 onChange={(e) => setWebsite(e.target.value)}
                 className="add-forms-input-field"
-                style={{ marginBottom: '1em' }}
+                style={{ marginBottom: "1em" }}
               />
-                <input 
-                type="file" 
-                onChange={(e) => handleFileUpload(e)} 
-                />   
+              <input
+                type="file"
+                onChange={(e) => handleFileUpload(e)}
+              />
 
               {formError && <p className="error-message">{formError}</p>}
 

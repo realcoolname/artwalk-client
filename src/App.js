@@ -14,7 +14,7 @@ function App() {
   const { isLoggedIn, user } = useContext(AuthContext)
 
   return (
-    <div className="App">
+    <div className="App background">
         <NavBar   
             isLoggedIn={isLoggedIn} 
             user={user}
