@@ -4,6 +4,10 @@ import service from "../api/service";
 function VenueCard(props) {
   const { venue } = props;
 
+  const websiteUrl = venue.website.startsWith("http://") || venue.website.startsWith("https://")
+    ? venue.website
+    : `http://${venue.website}`;
+
   return (
     <div className='venue-card' style={{ backgroundColor: "#EBFFF8" }}>
       <div className="image-container">
@@ -17,7 +21,7 @@ function VenueCard(props) {
         {venue.address.city}, {venue.address.country}
       </p>
       <p>{venue.description}</p>
-      <p>{venue.website}</p>
+      <a href={websiteUrl} target="_blank" rel="noopener noreferrer">{venue.website}</a> 
     </div>
   );
 }
