@@ -61,13 +61,13 @@ function EventCard({ event, refreshEvents, handleUpdateButtonClick }) {
           
         />
         </div>
-        <div className="card-body event-card-body">
+        <div className="card-body event-card-body d-flex flex-column justify-content-between">
           <h2 className="card-title" >{event.name}</h2>
           <p className="card-text">Curated by: {event.curator}</p>
           <p className="card-text">Venue: {event.venue?.name}</p>
           <p className="card-text">{formattedDate}</p>
           <p className="card-text">{event.discipline}</p>
-          <p className="card-text">{event.description}</p>
+          <p className="card-text card-description">{event.description}</p>
           {isLoggedIn && isEventOwner && (
             <div className="d-flex event-card-buttons">
               <Button className="btn btn-primary update-btn" onClick={handleUpdate}>
